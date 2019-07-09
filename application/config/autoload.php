@@ -58,7 +58,12 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array();
+$autoload['libraries'] = array(
+    'Prolib'
+    ,'session'
+    ,'email'
+    #,'encrypt' This Encrypt library requires the Mcrypt extension.
+);
 
 /*
 | -------------------------------------------------------------------
