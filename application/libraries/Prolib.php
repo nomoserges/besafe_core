@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Prolib extends {
+class Prolib {
     
     protected static $CI;
 
@@ -14,7 +14,7 @@ class Prolib extends {
      * Recupere les donnees RAW-JSON des formulaires client.
      */
     public static function jsonInput(){
-        $_REQUEST= json_decode(trim(file_get_contents('php://input')), true);
+        $_REQUEST = json_decode(trim(file_get_contents('php://input')), true);
     }
     /** Renvoie des informations au format json.
      * @param string $msgType
@@ -22,12 +22,13 @@ class Prolib extends {
      * @param $msgBody
      * @param array $msgData
      */
-    public static function jsonOutput(string $msgType, string $msgTitle, array $msgData){
+    public static function jsonOutput(string $msgType, string $msgTitle, string $msgBody, array $msgData){
         echo json_encode(
             array(
-                'msgType' => $msgType,
-                'msgTitle' => $msgTitle,
-                'msgData' => $msgData,
+                'msgType'   => $msgType,
+                'msgTitle'  => $msgTitle,
+                'msgBody'   => $msgBody,
+                'msgData'   => $msgData,
             )
         );
     }
