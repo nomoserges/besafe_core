@@ -2,13 +2,13 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Phones_model extends CI_Model {
+class Emails_model extends CI_Model {
     
-    protected static $phonesTable = 'cust_phones';
+    protected static $emailTable = 'cust_emails';
 
     /** Insert new phone. */
     public function insert (array $data)  {
-        if( $this->db->insert(self::$phonesTable, $data) ){
+        if( $this->db->insert(self::$emailTable, $data) ){
             return true;
         } else {
             # we put this $this->db->error(); on log
@@ -16,11 +16,11 @@ class Phones_model extends CI_Model {
         }
     }
 
-    /** Phones for specific user. */
-    public function getUserPhones(sring $userID, string $phone=null) {
+    /** Emails for specific user. */
+    public function getUserEmails(sring $userID, string $email = null) {
         $sql = "SELECT * "
-            ."FROM ".self::$phonesTable
-            ." WHERE (userid = '" . $userID . "' OR phone_number = '" . $phone . "') AND status = 1 ";
+            ."FROM ".self::$emailTable
+            ." WHERE (userid = '" . $userID . "' OR email = '" . $email . "') AND status = 1 ";
         $query = $this->db->query($sql);
         if ( false == $query ) {
             return $query;
@@ -30,10 +30,10 @@ class Phones_model extends CI_Model {
     }
 
     /** Soft delete of row. */
-    public function delete(sring $userID, string $phone) {
-        $updateQuery = "UPDATE ".self::$phonesTable
+    public function delete(sring $userID, string $email) {
+        $updateQuery = "UPDATE ".self::$emailTable
             ." SET status = 0 "
-            ."WHERE userid = '" . $userID . "' AND phone_number='" . $phone . "' LIMIT 1 ";
+            ."WHERE userid = '" . $userID . "' AND doc_number='" . $email . "' LIMIT 1 ";
         if ( $this->db->query($updateQuery) ) {
             return true;
         } else {

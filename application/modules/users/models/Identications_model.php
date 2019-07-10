@@ -17,7 +17,7 @@ class Identications_model extends CI_Model {
     }
 
     /** Identication for specific user. */
-    public function delete(sring $userID, string $docNumber) {
+    public function getUserIdentications(sring $userID, string $docNumber = null) {
         $sql = "SELECT * "
             ."FROM ".self::$identicationTable
             ." WHERE (userid = '" . $userID . "' OR doc_number = '" . $docNumber . "') AND status = 1 ";
@@ -30,10 +30,10 @@ class Identications_model extends CI_Model {
     }
 
     /** Soft delete of row. */
-    public function delete(sring $userID, string $phone) {
+    public function delete(sring $userID, string $docNumber) {
         $updateQuery = "UPDATE ".self::$identicationTable
             ." SET status = 0 "
-            ."WHERE userid = '" . $userID . "' AND phone_number='" . $phone . "' LIMIT 1 ";
+            ."WHERE userid = '" . $userID . "' AND doc_number='" . $docNumber . "' LIMIT 1 ";
         if ( $this->db->query($updateQuery) ) {
             return true;
         } else {
