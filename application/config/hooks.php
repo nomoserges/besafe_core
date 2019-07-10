@@ -11,25 +11,3 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |	https://codeigniter.com/user_guide/general/hooks.html
 |
 */
-
-/*  This is to enable Cors before controller.   */
-$hook['pre_controller'][] = array(
-        'class'    => 'MyHooks',
-        'function' => 'enableCors',
-        'filename' => 'MyHooks.php',
-        'filepath' => 'hooks'
-);
-/*  This is to enable Cors on post controller constructor.  */
-$hook['post_controller_constructor'][] = array(
-        'class'    => 'MyHooks',
-        'function' => 'enableCors',
-        'filename' => 'MyHooks.php',
-        'filepath' => 'hooks'
-);
-/*  This is to enable Cors on post controller.   */
-$hook['post_controller'][] = array(
-        'class'    => 'MyHooks',
-        'function' => 'enableCors',
-        'filename' => 'MyHooks.php',
-        'filepath' => 'hooks'
-);
