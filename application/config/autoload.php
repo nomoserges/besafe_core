@@ -144,5 +144,8 @@ $autoload['model'] = array(
     'users/Users_model',
     'users/Phones_model',
     'users/Emails_model',
-    'users/Identications_model'
+    'users/Identications_model',
+    'vehicles/Vehicles_model',
+    'vehicles/Carsusers_model',
+    'backend/Managers_model'
 );
