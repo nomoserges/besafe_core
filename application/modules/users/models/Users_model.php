@@ -4,6 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Users_model extends CI_Model {
 
     protected static $usersTable = 'users';
+    protected static $usersPhonesTable = 'cust_phones';
+    protected static $usersEmailsTable = 'cust_emails';
 
     private function generateUserID(){
         # $newUserID = random_string('numeric', 12).'-'.random_string('alnum', 32);
@@ -53,20 +55,22 @@ class Users_model extends CI_Model {
      * @param $password
      * @return mixed
      */
-    public function findWithCredentials($credential, $withPassword, $password){
+    public function findWithCredentials(string $credential, $withPassword = FALSE, string $password){
         # si la recherche se fait avec le mot de passe.
         $addPasswordCheck = ' ';
-        if ($withPassword == true) {
+        if ($withPassword == TRUE) {
             $addPasswordCheck = " AND password = '".sha1($password)."' ";
         }
         # we will set columns to avoid password and others
-        $sql = "SELECT * "
-            ."FROM ".self::$usersTable
-            ." WHERE (userid = '".$credential."' OR username='".$credential."' OR email='".$credential
-            ."' OR phone_number='".$credential."')".$addPasswordCheck."AND is_activated=1 LIMIT 1 ";
+        $sql = "SELECT u.* "
+            ."FROM " . self::$usersTable . " u"
+            ." JOIN " . self::$usersPhonesTable . " p on u.userid = p.userid "
+            ." JOIN " . self::$usersEmailsTable . " e on u.userid = e.userid "
+            ." WHERE (u.userid = '" . $credential . "' OR pseudo='" . $credential . "' OR e.email='" . $credential
+            ."' OR p.phone_number='" . $credential . "')" . $addPasswordCheck . "AND is_activated=1 LIMIT 1 ";
         $query = $this->db->query($sql);
         if ( false == $query ) {
-            return $query;
+            return false;
         } else {
             return $query->row_array();
         }

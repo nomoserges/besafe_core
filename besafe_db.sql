@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 10, 2019 at 03:06 PM
+-- Generation Time: Jul 11, 2019 at 04:47 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.14
 
@@ -143,6 +143,13 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `pseudo` (`pseudo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`userid`, `pseudo`, `password`, `firstname`, `lastname`, `gender`, `country`, `town`, `place`, `dob`, `job_title`, `job_description`, `is_activated`, `created_at`, `updated_at`) VALUES
+('f7c3bc1d808e04732adf679965ccc34ca7ae3441', 'seannomo', 'f7c3bc1d808e04732adf679965ccc34ca7ae3441', 'Serge Anselme', 'Mvilongo Nomo', 'male', 'Cameroun', 'Douala', 'Ngousso', '1990-07-11', 'Software Architect', 'Building applications', 0, '2019-07-11 09:10:36', '2019-07-11 09:10:36');
+
 -- --------------------------------------------------------
 
 --
@@ -152,12 +159,20 @@ CREATE TABLE IF NOT EXISTS `users` (
 DROP TABLE IF EXISTS `users_managers`;
 CREATE TABLE IF NOT EXISTS `users_managers` (
   `user_login` varchar(20) NOT NULL,
-  `user_password` varchar(32) NOT NULL,
+  `user_password` varchar(255) NOT NULL,
   `userid` varchar(62) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `last_login` timestamp NOT NULL,
+  `last_login` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_login`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `users_managers`
+--
+
+INSERT INTO `users_managers` (`user_login`, `user_password`, `userid`, `status`, `created_at`, `last_login`) VALUES
+('mvilongo', '9a11dcbcf447427142df3a41510dfa73b7f419f2', 'f7c3bc1d808e04732adf679965ccc34ca7ae3441', 1, '2019-07-11 14:50:36', '2019-07-11 14:52:17');
 
 -- --------------------------------------------------------
 

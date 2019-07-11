@@ -5,6 +5,8 @@ class Users extends MX_Controller {
 
     /* Index of controller. */
     public function index() {
-        echo 'User module controller';
+        
+        echo 'User module controller<br/>';
+        echo sha1('mvilongo') . '<br/>';
     }
 }
