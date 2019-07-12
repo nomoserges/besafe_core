@@ -141,11 +141,11 @@ $autoload['language'] = array();
 |	$autoload['model'] = array('first_model' => 'first');
 */
 $autoload['model'] = array(
-    'users/Phones_model',
+    'users/Phones_model' => 'PhonesModel',
     'users/Users_model' => 'UsersModel',
-    'users/Emails_model',
-    'users/Identications_model',
-    'vehicles/Vehicles_model',
-    'vehicles/Carsusers_model',
+    'users/Emails_model' => 'EmailsModel',
+    'users/Identications_model' => 'IdenticationsModel',
+    'vehicles/Vehicles_model' => 'CarsModel',
+    'vehicles/Carsusers_model' => 'CarsUsersModel',
     'backend/Managers_model' => 'ManagersModel'
 );

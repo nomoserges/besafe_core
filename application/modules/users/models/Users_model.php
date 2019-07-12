@@ -39,7 +39,6 @@ class Users_model extends CI_Model {
         $arr = array('userid' => $userID);
         $data = array_merge($data, $arr);
         if( $this->db->insert(self::$usersTable, $data) ){
-            unset($data['password']);
             /*  we will check if the phone number or email is provided. */
             # we call methods of each model
             return $userID;
@@ -101,5 +100,20 @@ class Users_model extends CI_Model {
             return $dataX;
         }
     }
+
+    /** Get all customers. */
+    public function getAllCustomers() {
+        $sql = "SELECT u.pseudo, u.firstname, u.lastname, u.dob, u.gender, u.country, "
+            ."u.town, u.place, u.job_title "
+            ."FROM " . self::$usersTable . " u"
+            ." WHERE is_activated = 1 ";
+        $query = $this->db->query($sql);
+        if ( false == $query ) {
+            return false;
+        } else {
+            return $query->row_array();
+        }
+    }
+    
 
 }

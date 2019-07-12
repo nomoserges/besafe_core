@@ -20,10 +20,10 @@ class Carsusers_model extends CI_Model {
     }
     
    /** Get user's vehicle. */
-    public function getUsersVehicles(sring $userID) {
+    public function getUsersVehicles(sring $credential) {
         $sql = "SELECT * "
             ."FROM ".self::$carsusersTable
-            ." WHERE userid = '" . $userID . "' AND status = 1 ";
+            ." WHERE (userid = '" . $credential . "' OR reference = '" . $credential . "') AND status = 1 ";
         $query = $this->db->query($sql);
         if ( false == $query ) {
             return $query;

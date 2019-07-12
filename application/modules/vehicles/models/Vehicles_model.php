@@ -10,7 +10,7 @@ class Vehicles_model extends CI_Model {
      * @param $data from controller
      * @return array|bool
      */
-    public function register($data) {
+    public function insert($data) {
         if( $this->db->insert(self::$vehiclesTable, $data) ){
             return $true;
         } else {
@@ -24,6 +24,19 @@ class Vehicles_model extends CI_Model {
         $sql = "SELECT * "
             ."FROM ".self::$vehiclesTable
             ." WHERE reference = '" . $userID . "' AND status = 1 ";
+        $query = $this->db->query($sql);
+        if ( false == $query ) {
+            return $query;
+        } else {
+            return $query->row_array();
+        }
+    }
+   
+    /** All vehicles. */
+    public function getAllVehicles() {
+        $sql = "SELECT * "
+            ."FROM ".self::$vehiclesTable
+            ." WHERE status = 1 ";
         $query = $this->db->query($sql);
         if ( false == $query ) {
             return $query;
