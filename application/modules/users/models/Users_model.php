@@ -103,7 +103,7 @@ class Users_model extends CI_Model {
 
     /** Get all customers. */
     public function getAllCustomers() {
-        $sql = "SELECT u.pseudo, u.firstname, u.lastname, u.dob, u.gender, u.country, "
+        $sql = "SELECT u.userid, u.pseudo, u.firstname, u.lastname, u.dob, u.gender, u.country, "
             ."u.town, u.place, u.job_title "
             ."FROM " . self::$usersTable . " u"
             ." WHERE is_activated = 1 ";

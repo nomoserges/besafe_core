@@ -5,6 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Identications_model extends CI_Model {
     
     protected static $identicationTable = 'cust_identications';
+    protected static $usersTable = 'users';
 
     /** Insert new phone. */
     public function insert (array $data)  {
@@ -25,7 +26,20 @@ class Identications_model extends CI_Model {
         if ( false == $query ) {
             return $query;
         } else {
-            return $query->row_array();
+            return $query->result_array();
+        }
+    }
+
+    /** Identications. */
+    public function getAllIdentications() {
+        $sql = "SELECT * "
+            ."FROM ".self::$identicationTable
+            ." WHERE status = 1 ";
+        $query = $this->db->query($sql);
+        if ( false == $query ) {
+            return $query;
+        } else {
+            return $query->result_array();
         }
     }
 

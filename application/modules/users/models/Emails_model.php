@@ -5,6 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Emails_model extends CI_Model {
     
     protected static $emailTable = 'cust_emails';
+    protected static $usersTable = 'users';
 
     /** Insert new phone. */
     public function insert (array $data)  {
@@ -25,7 +26,21 @@ class Emails_model extends CI_Model {
         if ( false == $query ) {
             return $query;
         } else {
-            return $query->row_array();
+            return $query->result_array();
+        }
+    }
+
+    /** Emails . */
+    public function getAllEmails() {
+        $sql = "SELECT e.id, u.userid, u.pseudo, u.firstname, u.lastname, e.email "
+            ."FROM " . self::$emailTable . " e "
+            ."JOIN " . self::$usersTable . " u on e.userid = u.userid "
+            ." WHERE status = 1 ";
+        $query = $this->db->query($sql);
+        if ( false == $query ) {
+            return $query;
+        } else {
+            return $query->result_array();
         }
     }
 

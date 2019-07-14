@@ -45,13 +45,7 @@ class Backend extends MX_Controller {
     /* Get customers list. */
     public function getcostumers(){
         $modelHandler = $this->UsersModel->getAllCustomers();
-        if (is_array($modelHandler)) {
-            # we have informations
-            $this->prolib->jsonOutput('success', 'Customers', 'Data retrieved', $modelHandler);
-        } else {
-            # no data
-            $this->prolib->jsonOutput('error', 'Customers', 'No data retrieved', []);
-        }
+        echo json_encode($modelHandler);
     }
 
     /** Add customer identication. */
@@ -75,14 +69,8 @@ class Backend extends MX_Controller {
 
     /* Get customer's identication. */
     public function getidentication(){
-        $modelHandler = $this->IdenticationsModel->getUserIdentications($_REQUEST['userid']);
-        if ( !is_array($modelHandler) ) {
-            # no data
-            $this->prolib->jsonOutput('error', 'Customer', 'Retrieving identication fail', []);
-        } else {
-            # we have informations
-            $this->prolib->jsonOutput('success', 'Customer', 'Retrieving identication succeed', $modelHandler);
-        }
+        $modelHandler = $this->IdenticationsModel->getAllIdentications();
+        echo json_encode($modelHandler);
     }
 
     /** Add customer phones numbers. */
@@ -103,20 +91,14 @@ class Backend extends MX_Controller {
 
     /* Get customer's phones. */
     public function getphones(){
-        $modelHandler = $this->PhonesModel->getUserPhones($_REQUEST['userid']);
-        if ( !is_array($modelHandler) ) {
-            # no data
-            $this->prolib->jsonOutput('error', 'Phones', 'Retrieving phones fail', []);
-        } else {
-            # we have informations
-            $this->prolib->jsonOutput('success', 'Phones', 'Retrieving phones succeed', $modelHandler);
-        }
+        $modelHandler = $this->PhonesModel->getAllPhones();
+        echo json_encode($modelHandler);
     }
 
     /** Add customer email. */
     public function addemail() {
         $modelData = array(
-            'userid'            => $_REQUEST['userid'],
+            'userid'     => $_REQUEST['userid'],
             'email'      => $_REQUEST['u_emal']
         );
         $modelHandler = $this->EmailsModel->insert($modelData);
@@ -129,16 +111,10 @@ class Backend extends MX_Controller {
         }
     }
 
-    /* Get customer's emails. */
+    /* Get emails. */
     public function getemails(){
-        $modelHandler = $this->EmailsModel->getUserEmails($_REQUEST['userid']);
-        if ( !is_array($modelHandler) ) {
-            # no data
-            $this->prolib->jsonOutput('error', 'Emails', 'Retrieving emails fail', []);
-        } else {
-            # we have informations
-            $this->prolib->jsonOutput('success', 'Emails', 'Retrieving emails succeed', $modelHandler);
-        }
+        $modelHandler = $this->EmailsModel->getAllEmails();
+        echo json_encode($modelHandler);
     }
     
 }
