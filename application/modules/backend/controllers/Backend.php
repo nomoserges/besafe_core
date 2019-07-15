@@ -20,6 +20,10 @@ class Backend extends MX_Controller {
         }
     }
 
+    /***************************************************************
+                           CUSTOMERS SECTION
+    *************************************************************** */
+
     /* Insert new customer handly. */
     public function newcostumer(){
         $modelData = array(
@@ -99,7 +103,7 @@ class Backend extends MX_Controller {
     public function addemail() {
         $modelData = array(
             'userid'     => $_REQUEST['userid'],
-            'email'      => $_REQUEST['u_emal']
+            'email'      => $_REQUEST['u_email']
         );
         $modelHandler = $this->EmailsModel->insert($modelData);
         if ( $modelHandler == FALSE ) {
@@ -117,4 +121,10 @@ class Backend extends MX_Controller {
         echo json_encode($modelHandler);
     }
     
+    /***************************************************************
+                           VEHICLES SECTION
+    *************************************************************** */
+    public function getallvehicles(){
+        echo 'all vehicles';
+    }
 }

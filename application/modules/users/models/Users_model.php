@@ -71,7 +71,7 @@ class Users_model extends CI_Model {
         if ( false == $query ) {
             return false;
         } else {
-            return $query->row_array();
+            return $query->result_array();
         }
     }
     /*
@@ -111,7 +111,7 @@ class Users_model extends CI_Model {
         if ( false == $query ) {
             return false;
         } else {
-            return $query->row_array();
+            return $query->result_array();
         }
     }
     
