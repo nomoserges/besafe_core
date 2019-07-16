@@ -52,6 +52,12 @@ class Backend extends MX_Controller {
         echo json_encode($modelHandler);
     }
 
+    public function getcustomersfullname(){
+        $retVal = $_REQUEST['filter'] ;
+        $modelHandler = $this->UsersModel->getCustomersFullname($retVal);
+        echo json_encode($modelHandler);
+    }
+
     /** Add customer identication. */
     public function addidentication() {
         $modelData = array(
@@ -145,5 +151,31 @@ class Backend extends MX_Controller {
             # we have informations
             $this->prolib->jsonOutput('success', 'Vehicle', 'Registering vehicle succeed', []);
         }
+    }
+
+    /** New car user */
+    public function newcaruser(){
+        $modelData = array(
+            'userid'            => $_REQUEST['userid'],
+            'reference'         => $_REQUEST['v_reference'],
+            'type_relation'     => $_REQUEST['v_type_relation'],
+            'type_owner'        => $_REQUEST['v_type_owner'],
+            'num_driver'        => $_REQUEST['v_num_driver'],
+            'start_date'        => $_REQUEST['v_start_date']
+        );
+        $modelHandler = $this->CarsUsersModel->insert($modelData);
+        if ( $modelHandler == FALSE ) {
+            # no data
+            $this->prolib->jsonOutput('error', 'User Vehicle', 'Registering user vehicle fail', []);
+        } else {
+            # we have informations
+            $this->prolib->jsonOutput('success', 'User Vehicle', 'Registering user vehicle succeed', []);
+        }
+    }
+
+    /** All user's vehicles */
+    public function getallusersvehicles(){
+        $modelHandler = $this->CarsUsersModel->getAllUsersVehicles();
+        echo json_encode($modelHandler);
     }
 }

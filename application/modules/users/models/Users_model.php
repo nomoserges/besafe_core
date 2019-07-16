@@ -114,6 +114,18 @@ class Users_model extends CI_Model {
             return $query->result_array();
         }
     }
-    
+
+    /** Get user id and full name. */
+    public function getCustomersFullname($filter) {
+        $sql = "SELECT u.userid as id, CONCAT(u.firstname, CONCAT(' ',  u.lastname)) as value "
+            ."FROM " . self::$usersTable . " u"
+            ." WHERE (firstname LIKE '%" . $filter . "%' OR lastname LIKE '%" . $filter . "%') AND is_activated = 1 ";
+        $query = $this->db->query($sql);
+        if ( false == $query ) {
+            return false;
+        } else {
+            return $query->result_array();
+        }
+    }
 
 }
