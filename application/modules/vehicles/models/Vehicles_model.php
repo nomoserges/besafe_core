@@ -12,7 +12,7 @@ class Vehicles_model extends CI_Model {
      */
     public function insert($data) {
         if( $this->db->insert(self::$vehiclesTable, $data) ){
-            return $true;
+            return true;
         } else {
             # we put this $this->db->error(); on log
             return false;
@@ -28,7 +28,7 @@ class Vehicles_model extends CI_Model {
         if ( false == $query ) {
             return $query;
         } else {
-            return $query->row_array();
+            return $query->result_array();
         }
     }
    
@@ -41,7 +41,7 @@ class Vehicles_model extends CI_Model {
         if ( false == $query ) {
             return $query;
         } else {
-            return $query->row_array();
+            return $query->result_array();
         }
     }
 

@@ -21,7 +21,7 @@ class Backend extends MX_Controller {
     }
 
     /***************************************************************
-                           CUSTOMERS SECTION
+    *                       CUSTOMERS SECTION
     *************************************************************** */
 
     /* Insert new customer handly. */
@@ -122,9 +122,28 @@ class Backend extends MX_Controller {
     }
     
     /***************************************************************
-                           VEHICLES SECTION
+    *                       VEHICLES SECTION
     *************************************************************** */
     public function getallvehicles(){
-        echo 'all vehicles';
+        $modelHandler = $this->CarsModel->getAllVehicles();
+        echo json_encode($modelHandler);
+    }
+
+    /** Insert new vehicle. */
+    public function newvehicle(){
+        $modelData = array(
+            'reference'     => $_REQUEST['v_reference'],
+            'mark'      => $_REQUEST['v_mark'],
+            'year'     => $_REQUEST['v_year'],
+            'color'      => $_REQUEST['v_color']
+        );
+        $modelHandler = $this->CarsModel->insert($modelData);
+        if ( $modelHandler == FALSE ) {
+            # no data
+            $this->prolib->jsonOutput('error', 'Vehicle', 'Registering vehicle fail', []);
+        } else {
+            # we have informations
+            $this->prolib->jsonOutput('success', 'Vehicle', 'Registering vehicle succeed', []);
+        }
     }
 }
