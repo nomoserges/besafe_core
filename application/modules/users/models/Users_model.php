@@ -34,18 +34,25 @@ class Users_model extends CI_Model {
      * @return array|bool
      */
     public function register($data) {
-        $userID = $this->generateUserID();
-        //$qrcode = $this->prolib::qrGenerate( $userID );
-        $arr = array('userid' => $userID);
-        $data = array_merge($data, $arr);
-        if( $this->db->insert(self::$usersTable, $data) ){
-            /*  we will check if the phone number or email is provided. */
-            # we call methods of each model
-            return $userID;
+        # we check if the user already in database
+        $userInDB = $this->findWithCredentials($data['pseudo'], FALSE, '');
+        if( is_array($userInDB) && count($userInDB) > 1 ) {
+            return 'already';
         } else {
-            # we put this $this->db->error(); on log
-            return false;
+            $userID = $this->generateUserID();
+            //$qrcode = $this->prolib::qrGenerate( $userID );
+            $arr = array('userid' => $userID);
+            $data = array_merge($data, $arr);
+            if( $this->db->insert(self::$usersTable, $data) ){
+                /*  we will check if the phone number or email is provided. */
+                # we call methods of each model
+                return $userID;
+            } else {
+                # we put this $this->db->error(); on log
+                return false;
+            }
         }
+        
     }
     
     /** Look credentials for user (login)
@@ -63,8 +70,8 @@ class Users_model extends CI_Model {
         # we will set columns to avoid password and others
         $sql = "SELECT u.* "
             ."FROM " . self::$usersTable . " u"
-            ." JOIN " . self::$usersPhonesTable . " p on u.userid = p.userid "
-            ." JOIN " . self::$usersEmailsTable . " e on u.userid = e.userid "
+            ." LEFT JOIN " . self::$usersPhonesTable . " p on u.userid = p.userid "
+            ." LEFT JOIN " . self::$usersEmailsTable . " e on u.userid = e.userid "
             ." WHERE (u.userid = '" . $credential . "' OR pseudo='" . $credential . "' OR e.email='" . $credential
             ."' OR p.phone_number='" . $credential . "')" . $addPasswordCheck . "AND is_activated=1 LIMIT 1 ";
         $query = $this->db->query($sql);
