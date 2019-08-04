@@ -55,8 +55,8 @@ class Users extends MX_Controller {
         $this->prolib::jsonInput();
         # credential, password
         $modelHandler = $this->UsersModel->findWithCredentials($_REQUEST['u_pseudo'], true, $_REQUEST['u_password']);
-        if( false === $modelHandler ) {
-            $this->prolib->jsonOutput('error', 'Login', 'Error occured', []);
+        if( false === $modelHandler || 0 === sizeof($modelHandler) ) {
+            $this->prolib->jsonOutput('error', 'Login', 'Credentials are not correct', []);
         } else {
             # we have informations
             $this->prolib->jsonOutput('success', 'User', 'Login user succeed', 
